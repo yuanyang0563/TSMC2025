@@ -1,6 +1,10 @@
 #include "common.hpp"
 
+float kp = 5.0;
 bool flag_js = false;
+bool flag_gen= false;
+bool flag_ur = false;
+std::string mode;
 std::atomic_bool flag_stop = false;
 
 void signalHandler (int signum) {
