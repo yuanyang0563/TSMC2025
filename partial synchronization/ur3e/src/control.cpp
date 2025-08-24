@@ -1,0 +1,34 @@
+#include "manipulator.hpp"
+
+int main (int argc, char **argv) {
+
+	if (argc<2) {
+		std::cout << "set control mode: home | work" << std::endl;
+		return 1;
+	} else {
+		mode = argv[1];
+		if (mode!="home" && mode!="work")
+			return 1;
+	}
+
+	ros::init(argc,argv,"ur3e");
+	ros::start();
+	ros::Rate loop_rate(500);
+	manipulator arm("ur3e");
+	
+	// make the last joint velocity message be zero before the node shuts down
+	std::signal(SIGINT, signalHandler);
+	
+	while (ros::ok() && !flag_stop) {
+		if (flag_js && flag_ft) {
+			arm.send_partial_pose();
+			arm.send_joint_velocity();
+		}
+		ros::spinOnce();
+		loop_rate.sleep();
+	}
+	arm.send_joint_velocity();
+	
+	return 0;
+
+}
