@@ -5,9 +5,10 @@ mkdir -p build && cd build
 cmake ..
 make
 ```
-The gen3 control commands the cartesian twist of its associated manipulator via the ros_kortex driver. To build it, run the following commands in the terminal:
+The gen3 control commands the Cartesian twist of its associated manipulator via the ros_kortex driver. To build it, run the following commands in the terminal:
 ```bash
 cd gen3
 mkdir -p src && mv control src
 catkin_make
 ```
+To run the program, please follow the instructions on the drivers' GitHub repository.
