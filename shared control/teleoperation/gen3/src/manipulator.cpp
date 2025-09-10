@@ -244,17 +244,6 @@ void manipulator::setTwist () {
     			Eigen::MatrixXf twist_h(6, 1);
     			twist_h << (Hc-Eigen::Matrix3f::Identity())*mcd, skewVec(Hc);
     			twist += lambda_hbvs*Tec*J.transpose()*(J*J.transpose()).inverse()*twist_h;
-    			twist(2) = 0.0;
-    			
-    			Tco.block(0,0,3,3) = -Rco;
-    			Tco.block(0,3,3,3) = -skewMat(xco)*Rco;
-    			Tco.block(3,0,3,3) = Eigen::Matrix3f::Zero();
-    			Tco.block(3,3,3,3) = -Rco;
-    			Rco = Rl[waypoint]*Rco;
-    			xco = Rl[waypoint]*xco+xl[waypoint];
-    			Eigen::MatrixXf twist_p(6, 1);
-    			twist_p << Rco.transpose()*(xd-xco), skewVec(Rco.transpose()*Rd);
-    			twist += 5.0*lambda_hbvs*Tec*Tco*twist_p;
     		}
     		if (mode=="novs" && flag_init) {
     			// the following two lines are for pure teleoperation
